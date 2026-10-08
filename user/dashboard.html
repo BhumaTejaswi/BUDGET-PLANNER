@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Budget Planner</title>
+
+  <!-- Guard: only a logged-in USER may see this page. Keep these two lines first. -->
+  <script src="../auth.js"></script>
+  <script>var session = BPAuth.requireRole("user", "login.html");</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ============ Sidebar ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#dashboard">
+        <span class="brand-mark" aria-hidden="true">₹</span>
+        <span class="brand-name">Budget Planner</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <button class="nav-item" data-view="dashboard" type="button"><span class="ico" data-icon="dashboard"></span>Dashboard</button>
+        <button class="nav-item" data-view="transactions" type="button"><span class="ico" data-icon="transactions"></span>Transactions</button>
+        <button class="nav-item" data-view="budgets" type="button"><span class="ico" data-icon="budgets"></span>Budgets</button>
+        <button class="nav-item" data-view="goals" type="button"><span class="ico" data-icon="goals"></span>Savings Goals</button>
+        <button class="nav-item" data-view="analytics" type="button"><span class="ico" data-icon="analytics"></span>Analytics</button>
+        <button class="nav-item" data-view="alerts" type="button"><span class="ico" data-icon="alerts"></span>Alerts<span class="nav-count" id="navAlertCount" hidden></span></button>
+        <button class="nav-item" data-view="reports" type="button"><span class="ico" data-icon="reports"></span>Reports</button>
+      </nav>
+
+      <div class="nav nav-bottom">
+        <button class="nav-item" data-view="settings" type="button"><span class="ico" data-icon="settings"></span>Settings</button>
+        <button class="nav-item" id="logoutBtn" type="button"><span class="ico" data-icon="logout"></span>Logout</button>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- ============ Main ============ -->
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false"><span class="ico" data-icon="menu"></span></button>
+
+        <label class="search">
+          <span class="ico" data-icon="search" aria-hidden="true"></span>
+          <input id="search" type="search" placeholder="Search transactions…" autocomplete="off" aria-label="Search transactions" />
+          <kbd aria-hidden="true">/</kbd>
+        </label>
+
+        <div class="top-actions">
+          <div class="popwrap">
+            <button class="icon-btn bell" id="bellBtn" type="button" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+              <span class="ico" data-icon="alerts"></span><span class="dot" id="bellDot" hidden></span>
+            </button>
+            <div class="popover" id="bellPop" hidden>
+              <p class="pop-title">Alerts</p>
+              <ul class="pop-list" id="bellList"></ul>
+              <button class="link pop-all" data-goto="alerts" type="button">See all alerts</button>
+            </div>
+          </div>
+
+          <div class="popwrap">
+            <button class="user-chip" id="userBtn" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" id="avatar">U</span>
+              <span class="user-name" id="userName">User</span>
+              <span class="ico chev" data-icon="chevron" aria-hidden="true"></span>
+            </button>
+            <div class="popover menu" id="userPop" hidden>
+              <p class="pop-email" id="userEmail"></p>
+              <button class="menu-item" data-goto="settings" type="button"><span class="ico" data-icon="settings"></span>Settings</button>
+              <button class="menu-item" id="logoutBtn2" type="button"><span class="ico" data-icon="logout"></span>Log out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content" id="content">
+
+        <!-- ---------- Dashboard ---------- -->
+        <section class="view" id="view-dashboard" aria-labelledby="greeting">
+          <div class="page-head">
+            <div>
+              <h1 id="greeting" tabindex="-1">Good morning!</h1>
+              <p class="sub" id="overview">Here's your financial overview.</p>
+            </div>
+          </div>
+
+          <div class="banner" id="emptyBanner" hidden>
+            <div>
+              <strong>Your dashboard is empty.</strong>
+              <span>Add your first income or expense to bring it to life, or load sample data to look around.</span>
+            </div>
+            <div class="banner-actions">
+              <button class="btn primary" data-open="income" type="button">Add income</button>
+              <button class="btn ghost" id="sampleBtn1" type="button">Load sample data</button>
+            </div>
+          </div>
+
+          <section class="stats" aria-label="Summary">
+            <article class="stat stat-balance">
+              <span class="stat-ico" data-icon="wallet"></span>
+              <p class="stat-label">Total Balance</p>
+              <p class="stat-value" id="statBalance">₹0</p>
+              <p class="stat-note" id="noteBalance">Available after savings</p>
+            </article>
+            <article class="stat stat-income">
+              <span class="stat-ico" data-icon="down"></span>
+              <p class="stat-label">Income</p>
+              <p class="stat-value" id="statIncome">₹0</p>
+              <p class="stat-note" id="noteIncome"></p>
+            </article>
+            <article class="stat stat-expense">
+              <span class="stat-ico" data-icon="up"></span>
+              <p class="stat-label">Expenses</p>
+              <p class="stat-value" id="statExpense">₹0</p>
+              <p class="stat-note" id="noteExpense"></p>
+            </article>
+            <article class="stat stat-saving">
+              <span class="stat-ico" data-icon="coin"></span>
+              <p class="stat-label">Savings</p>
+              <p class="stat-value" id="statSaving">₹0</p>
+              <p class="stat-note" id="noteSaving"></p>
+            </article>
+          </section>
+
+          <section class="grid-2">
+            <article class="panel">
+              <header class="panel-head">
+                <h2>Spending Overview</h2>
+                <span class="muted" id="spendMonth"></span>
+              </header>
+              <div class="donut-wrap">
+                <div class="donut">
+                  <svg id="donut" viewBox="0 0 200 200" role="img" aria-label="Spending by category"></svg>
+                  <div class="donut-center" aria-live="polite">
+                    <p class="donut-value" id="donutValue">₹0</p>
+                    <p class="donut-label" id="donutLabel">Total spent</p>
+                  </div>
+                </div>
+                <ul class="legend" id="legend"></ul>
+              </div>
+            </article>
+
+            <article class="panel">
+              <header class="panel-head">
+                <h2>Recent Transactions</h2>
+                <button class="link" data-goto="transactions" type="button">View all</button>
+              </header>
+              <ul class="tx-list" id="recentList"></ul>
+            </article>
+          </section>
+
+          <section class="panel">
+            <header class="panel-head"><h2>Quick Actions</h2></header>
+            <div class="quick">
+              <button class="qa qa-income" data-open="income" type="button"><span class="qa-ico" data-icon="down"></span>Add Income</button>
+              <button class="qa qa-expense" data-open="expense" type="button"><span class="qa-ico" data-icon="up"></span>Add Expense</button>
+              <button class="qa qa-budget" data-open="budget" type="button"><span class="qa-ico" data-icon="budgets"></span>Set Budget</button>
+              <button class="qa qa-goal" data-open="goal" type="button"><span class="qa-ico" data-icon="goals"></span>Add Goal</button>
+
+              <div class="quote">
+                <p>Better choices today, bigger goals tomorrow.</p>
+                <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+                  <path d="M60 116C60 90 58 70 62 44" stroke="#2f7d55" stroke-width="4" stroke-linecap="round" />
+                  <path d="M60 76C40 76 26 64 22 44c22-2 38 10 38 32Z" fill="#8dc29b" />
+                  <path d="M62 56c2-22 18-38 40-38 0 22-14 38-40 38Z" fill="#5fa77a" />
+                </svg>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- ---------- Transactions ---------- -->
+        <section class="view" id="view-transactions" aria-labelledby="h-transactions" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-transactions" tabindex="-1">Transactions</h1>
+              <p class="sub" id="txSummary">Every rupee in and out.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn ghost" data-open="income" type="button">Add income</button>
+              <button class="btn primary" data-open="expense" type="button">Add expense</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="toolbar">
+              <div class="seg seg-sm" role="radiogroup" aria-label="Filter by type" id="typeFilter">
+                <label><input type="radio" name="typeFilter" value="all" checked /><span>All</span></label>
+                <label><input type="radio" name="typeFilter" value="income" /><span>Income</span></label>
+                <label><input type="radio" name="typeFilter" value="expense" /><span>Expenses</span></label>
+              </div>
+              <select id="catFilter" aria-label="Filter by category"></select>
+              <button class="chip" id="clearQuery" type="button" hidden></button>
+            </div>
+            <ul class="tx-list tx-full" id="txList"></ul>
+          </div>
+        </section>
+
+        <!-- ---------- Budgets ---------- -->
+        <section class="view" id="view-budgets" aria-labelledby="h-budgets" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-budgets" tabindex="-1">Budgets</h1>
+              <p class="sub" id="budgetSummary">Set a monthly limit for each category.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn primary" data-open="budget" type="button">Set budget</button>
+            </div>
+          </div>
+          <div class="cards" id="budgetGrid"></div>
+        </section>
+
+        <!-- ---------- Savings goals ---------- -->
+        <section class="view" id="view-goals" aria-labelledby="h-goals" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-goals" tabindex="-1">Savings Goals</h1>
+              <p class="sub" id="goalSummary">Money you're putting aside for something that matters.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn primary" data-open="goal" type="button">Add goal</button>
+            </div>
+          </div>
+          <div class="cards" id="goalGrid"></div>
+        </section>
+
+        <!-- ---------- Analytics ---------- -->
+        <section class="view" id="view-analytics" aria-labelledby="h-analytics" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-analytics" tabindex="-1">Analytics</h1>
+              <p class="sub">How your money has moved over the last six months.</p>
+            </div>
+          </div>
+
+          <div class="insights" id="insights"></div>
+
+          <article class="panel">
+            <header class="panel-head">
+              <h2>Income vs Expenses</h2>
+              <ul class="key">
+                <li><span class="swatch swatch-income"></span>Income</li>
+                <li><span class="swatch swatch-expense"></span>Expenses</li>
+              </ul>
+            </header>
+            <div class="chart-scroll"><svg id="barChart" role="img" aria-label="Monthly income and expenses"></svg></div>
+          </article>
+        </section>
+
+        <!-- ---------- Alerts ---------- -->
+        <section class="view" id="view-alerts" aria-labelledby="h-alerts" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-alerts" tabindex="-1">Alerts</h1>
+              <p class="sub">Heads-ups about your budgets, spending and goals.</p>
+            </div>
+          </div>
+          <ul class="alert-list" id="alertList"></ul>
+        </section>
+
+        <!-- ---------- Reports ---------- -->
+        <section class="view" id="view-reports" aria-labelledby="h-reports" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-reports" tabindex="-1">Reports</h1>
+              <p class="sub">A monthly summary you can download or print.</p>
+            </div>
+            <div class="head-actions no-print">
+              <label class="month-pick"><span class="sr">Month</span><input type="month" id="reportMonth" /></label>
+              <button class="btn ghost" id="csvBtn" type="button">Download CSV</button>
+              <button class="btn primary" id="printBtn" type="button">Print</button>
+            </div>
+          </div>
+          <div id="reportBody"></div>
+        </section>
+
+        <!-- ---------- Settings ---------- -->
+        <section class="view" id="view-settings" aria-labelledby="h-settings" hidden>
+          <div class="page-head">
+            <div>
+              <h1 id="h-settings" tabindex="-1">Settings</h1>
+              <p class="sub">Your profile and your data.</p>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <article class="panel">
+              <header class="panel-head"><h2>Profile</h2></header>
+              <form id="profileForm" novalidate>
+                <div class="field">
+                  <label for="setName">Display name</label>
+                  <input id="setName" maxlength="40" autocomplete="name" />
+                  <p class="err" id="setNameErr" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="setEmail">Email</label>
+                  <input id="setEmail" disabled />
+                </div>
+                <button class="btn primary" type="submit">Save name</button>
+              </form>
+            </article>
+
+            <article class="panel">
+              <header class="panel-head"><h2>Your data</h2></header>
+              <p class="muted-block">Everything is stored in this browser only, under your account. Nothing is sent anywhere.</p>
+              <div class="stack">
+                <button class="btn ghost" id="sampleBtn2" type="button">Load sample data</button>
+                <button class="btn danger" id="clearBtn" type="button">Delete all my data</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ Dialogs ============ -->
+
+  <dialog class="dialog" id="txDialog" aria-labelledby="txTitle">
+    <form id="txForm" novalidate>
+      <header class="dlg-head">
+        <h2 id="txTitle">Add expense</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Close"><span class="ico" data-icon="close"></span></button>
+      </header>
+
+      <div class="seg" role="radiogroup" aria-label="Type">
+        <label><input type="radio" name="txType" value="income" /><span>Income</span></label>
+        <label><input type="radio" name="txType" value="expense" checked /><span>Expense</span></label>
+      </div>
+
+      <div class="field">
+        <label for="txAmount">Amount (₹)</label>
+        <input id="txAmount" inputmode="decimal" placeholder="0" autocomplete="off" />
+        <p class="err" id="txAmountErr" hidden></p>
+      </div>
+      <div class="field">
+        <label for="txCategory">Category</label>
+        <select id="txCategory"></select>
+      </div>
+      <div class="field">
+        <label for="txDate">Date</label>
+        <input id="txDate" type="date" />
+        <p class="err" id="txDateErr" hidden></p>
+      </div>
+      <div class="field">
+        <label for="txNote">Note <span class="opt">(optional)</span></label>
+        <input id="txNote" maxlength="60" placeholder="e.g. Grocery shopping" autocomplete="off" />
+      </div>
+
+      <footer class="dlg-foot">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn primary" type="submit" id="txSubmit">Add expense</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="budgetDialog" aria-labelledby="budgetTitle">
+    <form id="budgetForm" novalidate>
+      <header class="dlg-head">
+        <h2 id="budgetTitle">Set a budget</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Close"><span class="ico" data-icon="close"></span></button>
+      </header>
+      <div class="field">
+        <label for="budgetCategory">Category</label>
+        <select id="budgetCategory"></select>
+      </div>
+      <div class="field">
+        <label for="budgetLimit">Monthly limit (₹)</label>
+        <input id="budgetLimit" inputmode="decimal" placeholder="e.g. 5000" autocomplete="off" />
+        <p class="err" id="budgetLimitErr" hidden></p>
+      </div>
+      <footer class="dlg-foot">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn primary" type="submit">Save budget</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="goalDialog" aria-labelledby="goalTitle">
+    <form id="goalForm" novalidate>
+      <header class="dlg-head">
+        <h2 id="goalTitle">Add a savings goal</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Close"><span class="ico" data-icon="close"></span></button>
+      </header>
+      <div class="field">
+        <label for="goalName">Goal name</label>
+        <input id="goalName" maxlength="40" placeholder="e.g. New laptop" autocomplete="off" />
+        <p class="err" id="goalNameErr" hidden></p>
+      </div>
+      <div class="field">
+        <label for="goalTarget">Target amount (₹)</label>
+        <input id="goalTarget" inputmode="decimal" placeholder="e.g. 60000" autocomplete="off" />
+        <p class="err" id="goalTargetErr" hidden></p>
+      </div>
+      <div class="field">
+        <label for="goalSaved">Already saved <span class="opt">(optional)</span></label>
+        <input id="goalSaved" inputmode="decimal" placeholder="0" autocomplete="off" />
+        <p class="err" id="goalSavedErr" hidden></p>
+      </div>
+      <footer class="dlg-foot">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn primary" type="submit">Create goal</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="fundDialog" aria-labelledby="fundTitle">
+    <form id="fundForm" novalidate>
+      <header class="dlg-head">
+        <h2 id="fundTitle">Update goal</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Close"><span class="ico" data-icon="close"></span></button>
+      </header>
+      <p class="muted-block" id="fundInfo"></p>
+      <div class="seg" role="radiogroup" aria-label="Action">
+        <label><input type="radio" name="fundType" value="add" checked /><span>Add money</span></label>
+        <label><input type="radio" name="fundType" value="withdraw" /><span>Withdraw</span></label>
+      </div>
+      <div class="field">
+        <label for="fundAmount">Amount (₹)</label>
+        <input id="fundAmount" inputmode="decimal" placeholder="0" autocomplete="off" />
+        <p class="err" id="fundAmountErr" hidden></p>
+      </div>
+      <footer class="dlg-foot">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn primary" type="submit">Update goal</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="dialog dialog-sm" id="confirmDialog" aria-labelledby="confirmTitle">
+    <form method="dialog" id="confirmForm">
+      <h2 id="confirmTitle">Are you sure?</h2>
+      <p class="muted-block" id="confirmText"></p>
+      <footer class="dlg-foot">
+        <button class="btn ghost" value="cancel" type="submit">Cancel</button>
+        <button class="btn danger" value="ok" type="submit" id="confirmOk">Delete</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

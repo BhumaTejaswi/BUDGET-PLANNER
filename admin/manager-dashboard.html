@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Budget Planner Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="manager-dashboard.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.5 6.5-5.5s6 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17.5 14.6c2.3.3 3.7 1.9 4 4.4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 3h8.5L21 12.5 12.5 21 3 11.5z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4"/><path d="M16 8l4 4-4 4M20 12H9"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+</svg>
+
+<div class="app">
+  <nav class="rail" aria-label="Main">
+    <div class="logo" aria-hidden="true">₹</div>
+    <button class="nav" data-view="overview" aria-current="page"><svg class="i"><use href="#i-grid"/></svg>Overview</button>
+    <button class="nav" data-view="users"><svg class="i"><use href="#i-users"/></svg>Users</button>
+    <button class="nav" data-view="categories"><svg class="i"><use href="#i-tag"/></svg>Categories</button>
+    <button class="nav" data-view="alerts"><svg class="i"><use href="#i-bell"/></svg>Alerts<span class="badge" id="navBadge">0</span></button>
+    <button class="nav" data-view="system"><svg class="i"><use href="#i-pulse"/></svg>System</button>
+    <div class="grow"></div>
+    <button class="nav out" data-act="logout"><svg class="i"><use href="#i-out"/></svg>Log out</button>
+  </nav>
+
+  <main>
+    <div class="banner" id="banner" hidden>Maintenance mode is on. Users see a pause screen until you turn it off in System.</div>
+    <header class="top">
+      <div>
+        <h1 id="greet">Good evening, Admin</h1>
+        <p id="greetSub"></p>
+      </div>
+      <div class="tools">
+        <label class="search"><svg class="i" style="width:18px;height:18px"><use href="#i-search"/></svg>
+          <span class="sr">Search users</span>
+          <input id="q" type="search" placeholder="Search users by name, email or city" autocomplete="off">
+          <kbd>/</kbd></label>
+        <button class="round" data-act="theme" id="themeBtn" aria-label="Switch theme"><svg class="i"><use href="#i-moon"/></svg></button>
+        <button class="round" data-view="alerts" aria-label="Open alerts"><svg class="i"><use href="#i-bell"/></svg><span class="dot" id="bellDot"></span></button>
+        <div class="me"><div class="av" style="background:var(--marigold)">A</div><span>Admin</span></div>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="view" id="v-overview">
+      <div class="hero">
+        <div class="hero-top">
+          <div>
+            <h2 id="heroTitle"></h2>
+            <p class="sub">Income on the left, where it went on the right. Point at any stream to trace it.</p>
+          </div>
+          <div class="hero-actions">
+            <div class="seg" role="group" aria-label="Time period">
+              <button data-period="month" aria-pressed="true">Month</button>
+              <button data-period="quarter" aria-pressed="false">3 months</button>
+              <button data-period="year" aria-pressed="false">Year</button>
+            </div>
+            <button class="ghost" data-act="copySummary"><svg class="i"><use href="#i-copy"/></svg>Copy summary</button>
+          </div>
+        </div>
+        <div class="kpis" id="kpis"></div>
+      </div>
+
+      <div class="grid g-a">
+        <div class="panel">
+          <h3>Spending calendar</h3>
+          <p class="cap">Total spent by all users each day over the last 14 weeks. Darker means busier.</p>
+          <div class="heat-wrap">
+            <div class="months" id="months"></div>
+            <div class="days"><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span></div>
+            <div class="heat" id="heat" role="img" aria-label="Heatmap of daily spending"></div>
+          </div>
+          <div class="legend">Quieter <i style="background:var(--surface-2)"></i><i style="background:color-mix(in srgb,var(--violet) 30%,var(--surface-2))"></i><i style="background:color-mix(in srgb,var(--violet) 55%,var(--surface-2))"></i><i style="background:color-mix(in srgb,var(--violet) 80%,var(--surface-2))"></i><i style="background:var(--violet)"></i> Busier</div>
+          <div class="facts" id="heatFacts"></div>
+        </div>
+        <div class="panel">
+          <h3>Savings goals</h3>
+          <p class="cap">How users are doing against the goals they set.</p>
+          <div class="donut">
+            <svg viewBox="0 0 150 150" id="ring" role="img" aria-label="Goal progress ring"></svg>
+            <div class="leg" id="ringLeg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid g-b">
+        <div class="panel">
+          <h3>New sign-ups</h3>
+          <p class="cap" id="signCap"></p>
+          <div class="bars" id="signups"></div>
+        </div>
+        <div class="panel">
+          <h3>Who goes over budget</h3>
+          <p class="cap">Share of users who passed their monthly cap, by category.</p>
+          <div class="hb" id="breach"></div>
+        </div>
+      </div>
+
+      <div class="grid g-c">
+        <div class="panel">
+          <div class="panel-head"><h3>Newest users</h3><button class="link" data-view="users">See all users</button></div>
+          <p class="cap">Open a row to see their budget and take action.</p>
+          <div class="tw"><table><thead><tr><th>User</th><th>Status</th><th>Budget health</th><th class="hide-m">Joined</th></tr></thead><tbody id="recent"></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Live activity</h3>
+          <p class="cap">What users are doing right now.</p>
+          <ul class="feed" id="feed" aria-live="off"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- USERS -->
+    <section class="view" id="v-users" hidden>
+      <div class="view-head">
+        <div><h2>Users</h2><p id="usersSub"></p></div>
+        <div class="chips" id="userChips"></div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;align-items:center">
+          <p id="filterNote" style="color:var(--ink-2)"></p>
+          <label style="display:flex;gap:8px;align-items:center;color:var(--ink-2)">Sort by
+            <select id="sort"><option value="new">Newest first</option><option value="name">Name</option><option value="health">Budget health</option></select></label>
+        </div>
+        <div class="tw"><table><thead><tr><th>User</th><th>Status</th><th class="hide-m">City</th><th>Budget health</th><th class="hide-m">Joined</th><th class="hide-m">Last active</th></tr></thead><tbody id="allUsers"></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ALERTS -->
+    <section class="view" id="v-alerts" hidden>
+      <div class="view-head">
+        <div><h2>Alerts</h2><p>Things that need a decision from you.</p></div>
+        <div class="chips" id="alertChips"></div>
+      </div>
+      <div id="alertList"></div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="view" id="v-categories" hidden>
+      <div class="view-head"><div><h2>Categories</h2><p>Set the default monthly cap new users start with, and choose which categories they can pick.</p></div></div>
+      <div class="panel" style="margin-bottom:18px">
+        <h3>Add a category</h3>
+        <p class="cap">It appears in every user's budget the next time they open the app.</p>
+        <div class="add">
+          <label>Category name<input type="text" id="newName" placeholder="For example, Pets" maxlength="24"></label>
+          <label>Default monthly cap (₹)<input type="number" id="newCap" min="0" step="500" placeholder="3000"></label>
+          <button class="btn gold" data-act="addCat">Add category</button>
+        </div>
+        <div class="err" id="catErr" role="alert"></div>
+      </div>
+      <div class="panel" id="catList"></div>
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="view" id="v-system" hidden>
+      <div class="view-head"><div><h2>System</h2><p>Everything is running normally.</p></div></div>
+      <div class="tiles" id="tiles"></div>
+      <div class="grid g-b">
+        <div class="panel">
+          <h3>Response time</h3>
+          <p class="cap">Slowest 5% of requests over the last 24 hours, in milliseconds.</p>
+          <svg id="spark" viewBox="0 0 400 130" style="width:100%" role="img" aria-label="Response time trend"></svg>
+        </div>
+        <div class="panel">
+          <h3>Switches</h3>
+          <p class="cap">Changes apply to all users straight away.</p>
+          <div id="flags"></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <h3>Audit log</h3>
+        <p class="cap">Every change made by an admin, newest first.</p>
+        <ul class="log" id="audit"></ul>
+      </div>
+    </section>
+
+    <p style="color:var(--muted);font-size:13px;margin-top:28px">All names, amounts and events on this page are sample data for the design preview.</p>
+  </main>
+</div>
+
+<div id="scrim"></div>
+<aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" tabindex="-1"></aside>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="../auth.js"></script>
+<script src="manager-dashboard.js"></script>
+</body>
+</html>

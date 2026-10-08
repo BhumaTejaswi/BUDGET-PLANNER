@@ -1,0 +1,561 @@
+/* ==========================================================
+   Budget Planner: user/login.css
+   Base styles for the login pages. admin/ad.css imports this
+   file and only overrides what makes the admin page different.
+   ========================================================== */
+
+:root {
+  --forest: #0f4a33;
+  --forest-deep: #0a3323;
+  --leaf: #2f7d55;
+  --lime: #cdeb8b;
+  --mint: #e4efe6;
+  --paper: #f5faf6;
+  --ink: #15261d;
+  --muted: #5d7266;
+  --line: rgba(15, 74, 51, 0.18);
+  --danger: #b3261e;
+  --danger-soft: #fdecea;
+  --gold: #e8c766;
+  --gold-deep: #b98f26;
+
+  --panel-bg: var(--forest);
+  --button-bg: var(--forest);
+  --button-hover: var(--forest-deep);
+
+  --font-head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+/* ---------- Layout ---------- */
+
+.layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(360px, 46%) 1fr;
+}
+
+/* ---------- Left panel ---------- */
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px clamp(28px, 4vw, 56px);
+  background: var(--panel-bg);
+  color: #fff;
+  overflow: hidden;
+}
+
+.panel::after {
+  content: "";
+  position: absolute;
+  right: -140px;
+  top: -140px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.brand-block {
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--lime);
+  color: var(--forest);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.brand-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
+.brand-sub {
+  margin: 8px 0 0 50px;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.panel-line {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(28px, 7vh, 72px);
+  max-width: 14ch;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+/* ---------- Jar ---------- */
+
+.jar {
+  position: relative;
+  z-index: 1;
+  width: min(300px, 62%);
+  margin: auto auto 0;
+  overflow: visible;
+}
+
+.glass {
+  fill: rgba(255, 255, 255, 0.07);
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.rim {
+  fill: rgba(255, 255, 255, 0.16);
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2.5;
+}
+
+.shine {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.coin {
+  opacity: 0;
+  transform: translateY(-200px);
+  transition:
+    transform 0.75s cubic-bezier(0.34, 1.45, 0.5, 1),
+    opacity 0.15s linear;
+  transition-delay: calc(var(--d) * 90ms);
+}
+
+.coin.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.coin-face {
+  fill: var(--gold);
+  stroke: var(--gold-deep);
+  stroke-width: 2;
+}
+
+.coin-ring {
+  fill: none;
+  stroke: var(--gold-deep);
+  stroke-width: 1.2;
+  opacity: 0.7;
+}
+
+.coin-mark {
+  fill: var(--forest-deep);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 17px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* Sprout grows when login succeeds */
+
+.stem {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  transition: stroke-dashoffset 0.9s var(--ease) 0.25s;
+}
+
+.leaf {
+  opacity: 0;
+  transform-box: fill-box;
+  transform: scale(0.1);
+  transition: transform 0.6s var(--ease), opacity 0.3s linear;
+}
+
+.leaf-a { fill: #9fd6a6; transform-origin: 100% 100%; transition-delay: 0.85s; }
+.leaf-b { fill: #bfe59a; transform-origin: 0% 100%;   transition-delay: 1.0s; }
+.leaf-c { fill: #d9f2b3; transform-origin: 50% 100%;  transition-delay: 1.15s; }
+
+.sprout.grown .stem {
+  stroke-dashoffset: 0;
+}
+
+.sprout.grown .leaf {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Right side ---------- */
+
+.form-side {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 88px clamp(20px, 5vw, 64px) 48px;
+  background:
+    radial-gradient(700px 420px at 100% 0, #e2eee5 0, transparent 60%),
+    var(--paper);
+}
+
+.back {
+  position: absolute;
+  top: 28px;
+  right: clamp(20px, 5vw, 56px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.back:hover {
+  color: var(--forest);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  animation: enter 0.6s var(--ease) both;
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Round badge, like the reference */
+.badge {
+  --cut: var(--mint); /* colour of the gear cut-out on the admin shield */
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--mint);
+  color: var(--forest);
+  box-shadow: 0 0 0 8px rgba(47, 125, 85, 0.08);
+}
+
+h1 {
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 2.2rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--forest-deep);
+}
+
+.sub {
+  margin-top: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 15.5px;
+  color: var(--muted);
+}
+
+/* ---------- Form ---------- */
+
+.field {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  height: 52px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--muted);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.control:focus-within {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 4px rgba(47, 125, 85, 0.16);
+  color: var(--forest);
+}
+
+.control input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: 500 16px var(--font-body); /* 16px stops iOS zooming on focus */
+  color: var(--ink);
+}
+
+.control input::placeholder {
+  color: #93a59a;
+}
+
+.field.invalid .control {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.field.invalid .control:focus-within {
+  box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.14);
+}
+
+.help {
+  margin-top: 7px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.error {
+  margin-top: 7px;
+  font-size: 13.5px;
+  color: var(--danger);
+}
+
+.toggle {
+  border: 0;
+  background: none;
+  padding: 6px 4px;
+  font: 600 13.5px var(--font-body);
+  color: var(--forest);
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.toggle:focus-visible,
+.link:focus-visible,
+.back:focus-visible {
+  outline: 3px solid #9bd39f;
+  outline-offset: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 0 22px;
+}
+
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.remember input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--forest);
+}
+
+.link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--forest);
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.form-error {
+  margin-bottom: 16px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.submit {
+  width: 100%;
+  height: 54px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--button-bg);
+  color: #fff;
+  font: 600 16.5px var(--font-body);
+  cursor: pointer;
+  transition: background 0.25s var(--ease), transform 0.15s var(--ease);
+}
+
+.submit:hover {
+  background: var(--button-hover);
+}
+
+.submit:active {
+  transform: scale(0.99);
+}
+
+.submit:focus-visible {
+  outline: 3px solid #9bd39f;
+  outline-offset: 3px;
+}
+
+.submit[disabled] {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.alt {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--muted);
+}
+
+#signupForm .field {
+  margin-bottom: 16px;
+}
+
+#signupForm .submit {
+  margin-top: 8px;
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 10;
+  max-width: calc(100% - 40px);
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--forest-deep);
+  color: #fff;
+  font-size: 14.5px;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  /* On small screens the panel becomes a compact banner and the jar hides */
+  .panel {
+    padding: 16px 20px;
+  }
+
+  .brand-sub,
+  .panel-line,
+  .jar,
+  .panel::after {
+    display: none;
+  }
+
+  .form-side {
+    align-items: flex-start;
+    padding: 72px 20px 40px;
+  }
+
+  .back {
+    top: 22px;
+    right: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

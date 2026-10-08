@@ -1,0 +1,22 @@
+/* ==========================================================
+   Budget Planner: admin/ad.css
+   Reuses the shared login styles and changes only what makes
+   the admin page look different. Keep this @import first.
+   ========================================================== */
+
+@import url("../user/login.css");
+
+/* Deeper green panel and buttons so the admin side feels more serious */
+body {
+  --panel-bg: var(--forest-deep);
+  --button-bg: var(--forest-deep);
+  --button-hover: #06241a;
+}
+
+/* Darker badge with a lime shield */
+.badge {
+  --cut: var(--forest-deep);
+  background: var(--forest-deep);
+  color: var(--lime);
+  box-shadow: 0 0 0 8px rgba(10, 51, 35, 0.1);
+}
