@@ -1,588 +1,418 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fffdfb" />
 
-  <title>Budget Planner | Manage Your Money Smarter</title>
+  <title>Budget Planner | Make Money Make Sense</title>
 
-  <meta
-    name="description"
-    content="Budget Planner helps you track expenses, manage your budget, set financial goals and understand your spending."
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="role.css" />
 </head>
 
 <body>
 
-  <div class="page">
-
-    <!-- ================= HEADER ================= -->
-
-    <header class="topbar">
-
-      <a class="brand" href="#home" aria-label="Budget Planner home">
-        <span class="brand-mark">₹</span>
-        <span class="brand-name">Budget Planner</span>
-      </a>
-
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#about">About</a>
-      </nav>
-
-      <a href="#get-started" class="nav-button">
-        Get Started
-      </a>
-
-    </header>
-
-
-    <!-- ================= HERO ================= -->
-
-    <main>
-
-      <section class="hero" id="home">
-
-        <div class="hero-content">
-
-          <p class="eyebrow">SMARTER MONEY MANAGEMENT</p>
-
-          <h1>
-            Plan Smarter.
-            <span>Spend Better.</span>
-            Live Better.
-          </h1>
-
-          <p class="hero-text">
-            Budget Planner helps you keep track of your income,
-            expenses and financial goals in one simple place.
-          </p>
-
-          <div class="hero-buttons">
-
-            <a href="#get-started" class="btn btn-primary">
-              Get Started
-              <span>→</span>
-            </a>
-
-            <a href="#features" class="btn btn-secondary">
-              Explore Features
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- HERO VISUAL -->
-
-        <div class="hero-visual">
-
-          <div class="visual-card main-card">
-
-            <div class="visual-header">
-              <div>
-                <span class="small-label">MONTHLY OVERVIEW</span>
-                <h3>My Budget</h3>
-              </div>
-
-              <span class="visual-icon">₹</span>
-            </div>
-
-            <div class="amount">
-              ₹24,500
-            </div>
-
-            <p class="amount-label">
-              Available this month
-            </p>
-
-            <div class="progress-area">
-
-              <div class="progress-info">
-                <span>Budget used</span>
-                <strong>64%</strong>
-              </div>
-
-              <div class="progress-bar">
-                <span></span>
-              </div>
-
-            </div>
-
-            <div class="mini-stats">
-
-              <div>
-                <span>Income</span>
-                <strong>₹35,000</strong>
-              </div>
-
-              <div>
-                <span>Expenses</span>
-                <strong>₹10,500</strong>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="floating-card expense-card">
-            <span class="floating-icon">↘</span>
-
-            <div>
-              <small>Expenses</small>
-              <strong>₹10,500</strong>
-            </div>
-          </div>
-
-
-          <div class="floating-card goal-card">
-            <span class="floating-icon">✓</span>
-
-            <div>
-              <small>Monthly Goal</small>
-              <strong>On Track</strong>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ================= INTRO STRIP ================= -->
-
-      <section class="intro-strip">
-
-        <p>
-          Take control of your finances with a simple,
-          organized and practical approach to budgeting.
-        </p>
-
-      </section>
-
-
-      <!-- ================= FEATURES ================= -->
-
-      <section class="section features-section" id="features">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">WHAT YOU CAN DO</p>
-
-          <h2>
-            Everything you need to manage your budget.
-          </h2>
-
-          <p>
-            Budget Planner brings the essential tools for
-            understanding and managing your everyday finances.
-          </p>
-
-        </div>
-
-
-        <div class="feature-grid">
-
-          <article class="feature-card">
-
-            <div class="feature-icon">₹</div>
-
-            <h3>Track Expenses</h3>
-
-            <p>
-              Record and organize your expenses so you can
-              clearly understand where your money goes.
-            </p>
-
-          </article>
-
-
-          <article class="feature-card">
-
-            <div class="feature-icon">◷</div>
-
-            <h3>Manage Your Budget</h3>
-
-            <p>
-              Keep your spending aligned with your planned
-              budget and stay aware of your financial activity.
-            </p>
-
-          </article>
-
-
-          <article class="feature-card">
-
-            <div class="feature-icon">↗</div>
-
-            <h3>Monitor Income</h3>
-
-            <p>
-              Keep track of your income and compare it with
-              your spending for a clearer financial picture.
-            </p>
-
-          </article>
-
-
-          <article class="feature-card">
-
-            <div class="feature-icon">◎</div>
-
-            <h3>Set Financial Goals</h3>
-
-            <p>
-              Create meaningful financial goals and keep
-              yourself focused on making steady progress.
-            </p>
-
-          </article>
-
-
-          <article class="feature-card">
-
-            <div class="feature-icon">▥</div>
-
-            <h3>View Reports</h3>
-
-            <p>
-              Understand your financial patterns through
-              summaries and useful spending information.
-            </p>
-
-          </article>
-
-
-          <article class="feature-card">
-
-            <div class="feature-icon">✓</div>
-
-            <h3>Stay Organized</h3>
-
-            <p>
-              Keep your financial information structured and
-              accessible whenever you need it.
-            </p>
-
-          </article>
-
-        </div>
-
-      </section>
-
-
-      <!-- ================= HOW IT WORKS ================= -->
-
-      <section class="section how-section" id="how-it-works">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">HOW IT WORKS</p>
-
-          <h2>
-            Simple steps. Better financial habits.
-          </h2>
-
-          <p>
-            Getting started with Budget Planner is straightforward.
-          </p>
-
-        </div>
-
-
-        <div class="steps">
-
-          <div class="step">
-
-            <span class="step-number">01</span>
-
-            <div>
-              <h3>Choose Your Access</h3>
-
-              <p>
-                Select User or Admin depending on how
-                you want to use the platform.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="step">
-
-            <span class="step-number">02</span>
-
-            <div>
-              <h3>Manage Your Finances</h3>
-
-              <p>
-                Users can manage income, expenses,
-                budgets and financial goals.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="step">
-
-            <span class="step-number">03</span>
-
-            <div>
-              <h3>Understand Your Spending</h3>
-
-              <p>
-                Use the available information and reports
-                to understand your financial activity.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ================= ABOUT ================= -->
-
-      <section class="section about-section" id="about">
-
-        <div class="about-content">
-
-          <div class="about-title">
-
-            <p class="eyebrow">ABOUT BUDGET PLANNER</p>
-
-            <h2>
-              A simpler way to understand your money.
-            </h2>
-
-          </div>
-
-
-          <div class="about-text">
-
-            <p>
-              Budget Planner is a web-based application designed
-              to make personal budget management simple and
-              accessible.
-            </p>
-
-            <p>
-              The platform provides users with a structured way
-              to track their income and expenses, manage budgets,
-              set financial goals and understand their spending.
-            </p>
-
-            <p>
-              It also provides an administrative workspace for
-              managing and monitoring the platform.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="about-highlight">
-
-          <div>
-            <strong>Simple</strong>
-            <span>Easy to understand</span>
-          </div>
-
-          <div>
-            <strong>Organized</strong>
-            <span>Everything in one place</span>
-          </div>
-
-          <div>
-            <strong>Practical</strong>
-            <span>Built for everyday use</span>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ================= GET STARTED ================= -->
-
-      <section class="get-started" id="get-started">
-
-        <div class="get-started-heading">
-
-          <p class="eyebrow">GET STARTED</p>
-
-          <h2>
-            Choose how you want to use Budget Planner.
-          </h2>
-
-          <p>
-            Select your access type to continue to the
-            appropriate workspace.
-          </p>
-
-        </div>
-
-
-        <div class="access-grid">
-
-          <!-- USER -->
-
-          <article class="access-card">
-
-            <div class="access-icon user-icon">
-              <svg
-                viewBox="0 0 24 24"
-                width="42"
-                height="42"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="8" r="4" />
-
-                <path
-                  d="M3.8 21c0-4.4 3.7-7.2 8.2-7.2s8.2 2.8 8.2 7.2c0 .6-.4 1-1 1H4.8c-.6 0-1-.4-1-1Z"
-                />
-              </svg>
-            </div>
-
-            <h3>User</h3>
-
-            <p>
-              Manage your personal finances, track expenses,
-              manage your budget and work toward your goals.
-            </p>
-
-            <a href="user/login.html" class="access-button">
-              Continue as User
-              <span>→</span>
-            </a>
-
-          </article>
-
-
-          <!-- ADMIN -->
-
-          <article class="access-card">
-
-            <div class="access-icon admin-icon">
-              <svg
-                viewBox="0 0 24 24"
-                width="44"
-                height="44"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 2.5 4 5.6v6c0 4.6 3.2 8.4 8 9.9 4.8-1.5 8-5.3 8-9.9v-6L12 2.5Z"
-                />
-              </svg>
-            </div>
-
-            <h3>Admin</h3>
-
-            <p>
-              Monitor users, manage categories, view reports
-              and handle platform-related settings.
-            </p>
-
-            <a href="admin/ad.html" class="access-button">
-              Continue as Admin
-              <span>→</span>
-            </a>
-
-          </article>
-
-        </div>
-
-      </section>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="footer">
-
-      <div class="footer-main">
-
-        <div class="footer-brand">
-
-          <a class="brand" href="#home">
-
-            <span class="brand-mark">₹</span>
-
-            <span class="brand-name">
-              Budget Planner
-            </span>
-
-          </a>
-
-          <p>
-            Simple tools for smarter everyday
-            financial management.
-          </p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-          <div>
-            <h4>Explore</h4>
-
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#about">About</a>
-          </div>
-
-
-          <div>
-            <h4>Get Started</h4>
-
-            <a href="user/login.html">User Login</a>
-            <a href="admin/ad.html">Admin Login</a>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer-bottom">
-
-        <p>
-          Budget Planner • Simple • Secure • Smarter
-        </p>
-
-        <p>
-          Built with HTML, CSS & JavaScript
-        </p>
-
-      </div>
-
-    </footer>
-
+  <div class="background-shapes" aria-hidden="true">
+    <span class="shape shape-one"></span>
+    <span class="shape shape-two"></span>
+    <span class="shape shape-three"></span>
+    <span class="shape shape-four"></span>
   </div>
 
+  <header class="navbar">
+    <a href="#" class="logo">
+      <span class="logo-icon">₹</span>
+      <span>Budget<span class="logo-highlight">Planner</span></span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <a href="#get-started" class="nav-button">Get Started <span>↗</span></a>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          <span class="status-dot"></span>
+          YOUR SMARTER FINANCIAL JOURNEY STARTS HERE
+        </div>
+
+        <h1>
+          Make money<br>
+          make <span class="highlight-text">sense.</span>
+        </h1>
+
+        <p class="hero-description">
+          Take control of your money with a smarter way to plan,
+          track and grow your finances. Small plans today.
+          Better choices tomorrow.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#get-started" class="primary-button">
+            Start planning <span>↗</span>
+          </a>
+
+          <a href="#features" class="secondary-button">
+            Explore features <span>↓</span>
+          </a>
+        </div>
+
+        <div class="hero-note">
+          <span>✦</span>
+          Your money deserves a better plan.
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="floating-label label-top">
+          <span>✦</span> Smart money habits
+        </div>
+
+        <div class="dashboard-card">
+
+          <div class="card-header">
+            <div>
+              <span class="small-label">YOUR FINANCES</span>
+              <h3>Money overview</h3>
+            </div>
+            <span class="card-menu">•••</span>
+          </div>
+
+          <div class="balance-section">
+            <span class="small-label">Available balance</span>
+            <h2>₹24,850<span>.00</span></h2>
+            <span class="balance-change">↗ Looking good!</span>
+          </div>
+
+          <div class="mini-stats">
+            <div class="mini-stat income-stat">
+              <span class="stat-icon">↗</span>
+              <span class="small-label">Income</span>
+              <strong>₹35,000</strong>
+            </div>
+
+            <div class="mini-stat expense-stat">
+              <span class="stat-icon">↘</span>
+              <span class="small-label">Expenses</span>
+              <strong>₹10,150</strong>
+            </div>
+          </div>
+
+          <div class="progress-area">
+            <div class="progress-heading">
+              <span>Monthly budget</span>
+              <strong>72%</strong>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+
+            <span class="progress-caption">You're doing great this month!</span>
+          </div>
+
+          <div class="card-bottom">
+            <span>✦ Plan better</span>
+            <span>Spend smarter</span>
+          </div>
+
+        </div>
+
+        <div class="floating-label label-bottom">
+          <span>₹</span> Every rupee counts
+        </div>
+
+        <div class="decorative-star star-one">✳</div>
+        <div class="decorative-star star-two">✦</div>
+
+      </div>
+    </section>
+
+    <section class="features-section" id="features">
+
+      <div class="section-heading">
+        <span class="section-tag">WHAT YOU GET</span>
+        <h2>Everything your money<br>needs, <span>in one place.</span></h2>
+        <p>Simple tools that help you understand your spending and make better financial decisions.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <article class="feature-card feature-purple">
+          <div class="feature-icon">₹</div>
+          <span class="feature-number">01</span>
+          <h3>Expense Tracking</h3>
+          <p>Keep track of your daily spending and understand where your money goes.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+        <article class="feature-card feature-lime">
+          <div class="feature-icon">◎</div>
+          <span class="feature-number">02</span>
+          <h3>Budget Planning</h3>
+          <p>Set monthly limits and manage your money with a clear spending plan.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+        <article class="feature-card feature-peach">
+          <div class="feature-icon">✳</div>
+          <span class="feature-number">03</span>
+          <h3>Savings Goals</h3>
+          <p>Create savings goals and follow your progress as you get closer to them.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+        <article class="feature-card feature-blue">
+          <div class="feature-icon">▥</div>
+          <span class="feature-number">04</span>
+          <h3>Visual Reports</h3>
+          <p>Understand your income and expenses through clear charts and summaries.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+        <article class="feature-card feature-yellow">
+          <div class="feature-icon">⚑</div>
+          <span class="feature-number">05</span>
+          <h3>Smart Alerts</h3>
+          <p>Stay informed when your expenses approach or cross your budget limits.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+        <article class="feature-card feature-pink">
+          <div class="feature-icon">⌁</div>
+          <span class="feature-number">06</span>
+          <h3>Monthly Insights</h3>
+          <p>Review your monthly financial activity and identify spending patterns.</p>
+          <span class="feature-arrow">↗</span>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+
+      <div class="how-content">
+        <span class="section-tag light-tag">A SIMPLE ROUTINE</span>
+
+        <h2>Good money habits<br>start with <span>small steps.</span></h2>
+
+        <p>
+          You don't need complicated spreadsheets or endless calculations.
+          Just a simple place to organise your finances.
+        </p>
+
+        <div class="steps-list">
+
+          <div class="step">
+            <span class="step-number">01</span>
+            <div>
+              <h3>Set your budget</h3>
+              <p>Enter your income and decide how much you want to spend.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">02</span>
+            <div>
+              <h3>Track your expenses</h3>
+              <p>Add your daily expenses and organise them into categories.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">03</span>
+            <div>
+              <h3>Watch your progress</h3>
+              <p>Review reports, savings goals and monthly summaries.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="how-visual">
+        <div class="circle circle-large"></div>
+        <div class="circle circle-medium"></div>
+        <div class="circle circle-small"></div>
+
+        <div class="how-quote">
+          <span>✦</span>
+          <h3>Plan with purpose.<br>Spend with confidence.</h3>
+          <p>One step at a time.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="about-section" id="about">
+
+      <div class="about-decoration">
+        <div class="about-symbol">₹</div>
+        <span class="about-spark spark-a">✳</span>
+        <span class="about-spark spark-b">✦</span>
+      </div>
+
+      <div class="about-content">
+        <span class="section-tag">OUR PURPOSE</span>
+        <h2>Because every<br>rupee has a <span>purpose.</span></h2>
+
+        <p>
+          Budget Planner is designed to make personal finance easier
+          to understand and manage. From tracking expenses to building
+          savings habits, everything comes together in one organised space.
+        </p>
+
+        <a href="#get-started" class="text-link">
+          Find your starting point <span>↗</span>
+        </a>
+      </div>
+
+    </section>
+
+    <section class="get-started-section" id="get-started">
+
+      <div class="get-started-heading">
+        <span class="section-tag">YOUR NEXT STEP</span>
+        <h2>Let's make your money<br><span>work smarter.</span></h2>
+        <p>Choose how you want to continue.</p>
+      </div>
+
+      <div class="role-options">
+
+        <div class="role-card user-role" data-role="user">
+
+          <span class="status" hidden>Already signed in</span>
+
+          <div class="role-card-top">
+            <div class="role-icon">♙</div>
+            <span class="role-label">PERSONAL FINANCE</span>
+          </div>
+
+          <div class="role-card-content">
+            <h3>I'm a User</h3>
+            <p>
+              Manage your income, track expenses, set savings goals
+              and take control of your monthly budget.
+            </p>
+          </div>
+
+          <div class="role-card-bottom">
+            <span>Continue as User</span>
+            <a href="user/login.html" class="role-arrow" data-go="user">↗</a>
+          </div>
+
+        </div>
+
+        <div class="role-card admin-role" data-role="admin">
+
+          <span class="status" hidden>Already signed in</span>
+
+          <div class="role-card-top">
+            <div class="role-icon">✧</div>
+            <span class="role-label">ADMINISTRATION</span>
+          </div>
+
+          <div class="role-card-content">
+            <h3>I'm an Admin</h3>
+            <p>
+              Access the administration module to oversee users
+              and manage the Budget Planner platform.
+            </p>
+          </div>
+
+          <div class="role-card-bottom">
+            <span>Continue as Admin</span>
+            <a href="admin/ad.html" class="role-arrow" data-go="admin">↗</a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="bottom-note">
+        <span>✦</span> Small plans today. Better choices tomorrow.
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+
+    <a href="#" class="logo footer-logo">
+      <span class="logo-icon">₹</span>
+      <span>Budget<span class="logo-highlight">Planner</span></span>
+    </a>
+
+    <p>Make money make sense.</p>
+
+    <a href="#get-started" class="footer-link">Get started ↑</a>
+
+    <div class="footer-bottom">
+      <span>© 2026 Budget Planner. All rights reserved.</span>
+      <span>Built for smarter financial habits.</span>
+    </div>
+
+  </footer>
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(event) {
+        const href = this.getAttribute('href');
+
+        if (!href || href === "#") return;
+
+        const target = document.querySelector(href);
+
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Scroll reveal animations
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(
+        '.feature-card, .step, .about-content, .get-started-heading, .role-card'
+      ).forEach(element => {
+        element.classList.add('reveal');
+        revealObserver.observe(element);
+      });
+    }
+  </script>
 
   <script src="auth.js"></script>
   <script src="role.js"></script>
