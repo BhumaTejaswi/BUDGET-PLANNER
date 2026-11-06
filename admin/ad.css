@@ -1,22 +1,852 @@
-/* ==========================================================
-   Budget Planner: admin/ad.css
-   Reuses the shared login styles and changes only what makes
-   the admin page look different. Keep this @import first.
-   ========================================================== */
+/* =====================================================
+   BUDGET PLANNER — ADMIN LOGIN
+   Complete standalone stylesheet
+   Colourful anime-inspired premium theme
+   ===================================================== */
 
-@import url("../user/login.css");
-
-/* Deeper green panel and buttons so the admin side feels more serious */
-body {
-  --panel-bg: var(--forest-deep);
-  --button-bg: var(--forest-deep);
-  --button-hover: #06241a;
+:root {
+  --purple: #8154e8;
+  --purple-dark: #6234c7;
+  --pink: #f47acb;
+  --cyan: #75dce8;
+  --lime: #d5f477;
+  --ink: #29213e;
+  --muted: #89829b;
+  --white: #ffffff;
+  --forest-deep: #6234c7;
 }
 
-/* Darker badge with a lime shield */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Figtree", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 15%, #ffd9f1 0, transparent 28%),
+    radial-gradient(circle at 90% 85%, #d6e9ff 0, transparent 30%),
+    radial-gradient(circle at 75% 10%, #e8d8ff 0, transparent 25%),
+    #f8f6fc;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   BACKGROUND DECORATIONS
+   ===================================================== */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(2px);
+}
+
+body::before {
+  width: 330px;
+  height: 330px;
+  top: -130px;
+  right: 12%;
+  background: linear-gradient(135deg, #f9b7e7, #bba0ff);
+  opacity: 0.25;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+
+body::after {
+  width: 250px;
+  height: 250px;
+  bottom: -90px;
+  left: 35%;
+  background: linear-gradient(135deg, #9eeaf0, #d4f58c);
+  opacity: 0.25;
+  animation: floatOrb 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatOrb {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(35px, 45px) scale(1.12);
+  }
+}
+
+/* =====================================================
+   MAIN LAYOUT
+   ===================================================== */
+
+.layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  padding: 30px;
+  gap: 30px;
+}
+
+/* =====================================================
+   LEFT PANEL
+   ===================================================== */
+
+.panel {
+  position: relative;
+  min-height: calc(100vh - 60px);
+  border-radius: 32px;
+  padding: 42px 45px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background:
+    radial-gradient(circle at 80% 15%, rgba(255,255,255,0.22), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(117,220,232,0.3), transparent 35%),
+    linear-gradient(145deg, #8154e8 0%, #a44de0 48%, #e879c4 100%);
+
+  box-shadow: 0 25px 70px rgba(103, 65, 175, 0.2);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  top: 25%;
+  left: -170px;
+  box-shadow:
+    0 0 0 35px rgba(255,255,255,0.035),
+    0 0 0 70px rgba(255,255,255,0.025);
+}
+
+.panel::after {
+  content: "✦";
+  position: absolute;
+  top: 42%;
+  right: 12%;
+  font-size: 30px;
+  color: #fff2a8;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(30deg);
+  }
+}
+
+/* BRAND */
+
+.brand-block {
+  position: relative;
+  z-index: 2;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+}
+
+.brand-mark {
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  color: #7144d1;
+  background: #e8f99c;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.13);
+}
+
+.brand-name {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.brand-sub {
+  margin-top: 12px;
+  margin-left: 57px;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* PANEL TEXT */
+
+.panel-line {
+  position: relative;
+  z-index: 2;
+  max-width: 430px;
+  margin-top: auto;
+  margin-bottom: -10px;
+  color: white;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(32px, 3.5vw, 49px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.7px;
+}
+
+/* =====================================================
+   COIN JAR
+   ===================================================== */
+
+.jar {
+  position: relative;
+  z-index: 2;
+  width: min(270px, 75%);
+  height: auto;
+  align-self: center;
+  margin: 10px auto 0;
+  overflow: visible;
+  animation: jarFloat 5s ease-in-out infinite;
+}
+
+@keyframes jarFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-13px) rotate(2deg);
+  }
+}
+
+.stem {
+  fill: none;
+  stroke: #d8fa9b;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.leaf {
+  fill: #c9f58a;
+  stroke: #e8ffb9;
+  stroke-width: 2;
+}
+
+.leaf-a {
+  transform-origin: 122px 112px;
+  animation: leafMove 4s ease-in-out infinite alternate;
+}
+
+.leaf-b {
+  transform-origin: 124px 82px;
+  animation: leafMove 3.5s ease-in-out infinite alternate-reverse;
+}
+
+.leaf-c {
+  transform-origin: 124px 62px;
+  animation: leafMove 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes leafMove {
+  from {
+    transform: rotate(-5deg);
+  }
+
+  to {
+    transform: rotate(8deg);
+  }
+}
+
+.glass {
+  fill: rgba(255,255,255,0.18);
+  stroke: rgba(255,255,255,0.9);
+  stroke-width: 4;
+}
+
+.rim {
+  fill: #e5f9a0;
+  stroke: rgba(255,255,255,0.9);
+  stroke-width: 2;
+}
+
+.coin-face {
+  fill: #e8f58d;
+  stroke: #fff6bd;
+  stroke-width: 2;
+}
+
+.coin-ring {
+  fill: none;
+  stroke: #b1c957;
+  stroke-width: 2;
+}
+
+.coin-mark {
+  fill: #8a55c7;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.coin {
+  animation: coinGlow 3s ease-in-out infinite alternate;
+  animation-delay: calc(var(--d) * 0.3s);
+}
+
+@keyframes coinGlow {
+  from {
+    opacity: 0.8;
+  }
+
+  to {
+    opacity: 1;
+    filter: drop-shadow(0 0 7px rgba(255,255,180,0.7));
+  }
+}
+
+.shine {
+  fill: none;
+  stroke: rgba(255,255,255,0.7);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* =====================================================
+   RIGHT FORM SIDE
+   ===================================================== */
+
+.form-side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 25px;
+}
+
+.back {
+  position: absolute;
+  top: 8px;
+  left: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #81788f;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.back:hover {
+  color: var(--purple);
+  transform: translateX(-4px);
+}
+
+/* =====================================================
+   LOGIN CARD
+   ===================================================== */
+
+.card {
+  width: 100%;
+  max-width: 455px;
+  padding: 38px 40px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(255,255,255,0.95);
+
+  box-shadow:
+    0 25px 70px rgba(94, 69, 139, 0.11),
+    0 4px 15px rgba(94, 69, 139, 0.04);
+
+  backdrop-filter: blur(20px);
+  animation: cardEnter 0.7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =====================================================
+   BADGE
+   ===================================================== */
+
 .badge {
-  --cut: var(--forest-deep);
-  background: var(--forest-deep);
-  color: var(--lime);
-  box-shadow: 0 0 0 8px rgba(10, 51, 35, 0.1);
+  width: 65px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 22px;
+  border-radius: 21px;
+
+  background: linear-gradient(135deg, #8d5be9, #e879c4);
+  color: #e6f68e;
+
+  box-shadow:
+    0 10px 25px rgba(137, 79, 212, 0.22),
+    0 0 0 8px rgba(157, 110, 225, 0.08);
+}
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+h1 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 37px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -1.3px;
+  color: #302442;
+}
+
+.sub {
+  margin-top: 10px;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =====================================================
+   FORM FIELDS
+   ===================================================== */
+
+.field {
+  margin-bottom: 19px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #403750;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.control {
+  min-height: 53px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+
+  border: 1.5px solid #e9e4f1;
+  border-radius: 15px;
+  background: #fbfaff;
+
+  transition: 0.25s ease;
+}
+
+.control:focus-within {
+  border-color: #9c73e9;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(156, 115, 233, 0.11);
+}
+
+.control > svg {
+  flex-shrink: 0;
+  color: #9b8ab8;
+}
+
+.control input {
+  width: 100%;
+  min-width: 0;
+  height: 50px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #332842;
+  font-family: "Figtree", sans-serif;
+  font-size: 14px;
+}
+
+.control input::placeholder {
+  color: #b5aec2;
+}
+
+/* SHOW PASSWORD */
+
+.toggle {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--purple);
+  font-family: "Figtree", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: #e05eb8;
+}
+
+/* =====================================================
+   REMEMBER / FORGOT PASSWORD
+   ===================================================== */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0 23px;
+}
+
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #827b90;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.remember input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--purple);
+  cursor: pointer;
+}
+
+.link {
+  color: var(--purple);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.link:hover {
+  color: #e45db9;
+  text-decoration: underline;
+}
+
+/* =====================================================
+   SUBMIT BUTTON
+   ===================================================== */
+
+.submit {
+  position: relative;
+  width: 100%;
+  min-height: 55px;
+  overflow: hidden;
+  border: none;
+  border-radius: 16px;
+
+  background: linear-gradient(110deg, #8154e8, #b65cdb, #ed79c4);
+  background-size: 200% 100%;
+
+  color: white;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(146, 81, 211, 0.23);
+  transition: 0.3s ease;
+}
+
+.submit:hover {
+  background-position: 100% 0;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(146, 81, 211, 0.3);
+}
+
+.submit:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.submit-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================
+   SIGNUP / LOGIN SWITCH
+   ===================================================== */
+
+.alt {
+  margin-top: 24px;
+  text-align: center;
+  color: #8d859a;
+  font-size: 13px;
+}
+
+.alt .link {
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+/* =====================================================
+   ERROR MESSAGES
+   ===================================================== */
+
+.error {
+  margin-top: 7px;
+  color: #e44f78;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-error {
+  margin: 0 0 15px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: #fff0f3;
+  color: #d94b70;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.help {
+  margin-top: 7px;
+  color: #a19aaa;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   TOAST POPUP
+   ===================================================== */
+
+.toast {
+  position: fixed;
+  z-index: 100;
+  right: 25px;
+  bottom: 25px;
+
+  max-width: 330px;
+  padding: 15px 22px;
+
+  border-radius: 15px;
+  background: #352647;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  box-shadow: 0 12px 35px rgba(40, 25, 60, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+
+  transition: 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   HIDDEN ELEMENTS
+   ===================================================== */
+
+[hidden] {
+  display: none !important;
+}
+
+/* =====================================================
+   SIGNUP FORM SCROLLING
+   ===================================================== */
+
+#signupForm {
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+
+#signupForm::-webkit-scrollbar {
+  width: 5px;
+}
+
+#signupForm::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #d9c9f3;
+}
+
+#signupForm::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media (max-width: 1050px) {
+
+  .layout {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .panel {
+    padding: 35px 30px;
+  }
+
+  .card {
+    padding: 32px 28px;
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .panel {
+    min-height: 340px;
+    padding: 28px;
+    border-radius: 25px;
+  }
+
+  .panel-line {
+    max-width: 350px;
+    margin-top: 45px;
+    font-size: 34px;
+  }
+
+  .jar {
+    position: absolute;
+    width: 165px;
+    right: 15px;
+    bottom: 0;
+    opacity: 0.9;
+  }
+
+  .form-side {
+    padding: 55px 10px 25px;
+  }
+
+  .back {
+    top: 15px;
+    left: 10px;
+  }
+
+  .card {
+    max-width: 480px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .layout {
+    padding: 10px;
+  }
+
+  .panel {
+    min-height: 280px;
+    padding: 23px;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+
+  .brand-mark {
+    width: 39px;
+    height: 39px;
+  }
+
+  .brand-sub {
+    margin-left: 51px;
+    font-size: 11px;
+  }
+
+  .panel-line {
+    max-width: 240px;
+    font-size: 28px;
+  }
+
+  .jar {
+    width: 125px;
+    right: 2px;
+  }
+
+  .card {
+    padding: 28px 21px;
+    border-radius: 23px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .row {
+    align-items: flex-start;
+  }
+
+  .remember,
+  .link {
+    font-size: 11px;
+  }
+
+  #signupForm {
+    max-height: 60vh;
+  }
+
+}
+
+/* =====================================================
+   REDUCED MOTION ACCESSIBILITY
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
 }
